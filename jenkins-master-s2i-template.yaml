@@ -45,7 +45,7 @@ objects:
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    name: ${JENKINS_SERVICE_NAME}
+    name: jenkins
   spec:
     accessModes:
     - ReadWriteOnce
@@ -133,14 +133,14 @@ objects:
           terminationMessagePath: /dev/termination-log
           volumeMounts:
           - mountPath: /var/lib/jenkins
-            name: ${JENKINS_SERVICE_NAME}-data
+            name: jenkins-data
         dnsPolicy: ClusterFirst
         restartPolicy: Always
-        serviceAccountName: ${JENKINS_SERVICE_NAME}
+        serviceAccountName: default
         volumes:
-        - name: ${JENKINS_SERVICE_NAME}-data
+        - name: jenkins-data
           persistentVolumeClaim:
-            claimName: ${JENKINS_SERVICE_NAME}
+            claimName: jenkins
     test: false
     triggers:
     - type: ConfigChange

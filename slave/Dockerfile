@@ -8,7 +8,7 @@ USER root
 
 RUN yum clean all && \
     yum-config-manager --disable rhel* 1>/dev/null && \
-#    yum-config-manager --disable rhel-7-server-rt-beta-rpms && \
+    yum-config-manager --disable rhel-7-server-rt-beta-rpms && \
     yum-config-manager --enable rhel-7-server-rpms && \
     yum-config-manager --enable rhel-7-server-ose-3.2-rpms && \
     export INSTALL_PKGS="wget java-1.8.0-openjdk-headless \
@@ -20,7 +20,14 @@ RUN yum clean all && \
     mkdir -p /var/lib/jenkins && \
     chown -R 1001:0 /var/lib/jenkins && \
     chmod -R g+w /var/lib/jenkins
+
 RUN wget http://11.120.148.211/nss_wrapper-1.1.3-1.el7.x86_64.rpm
+
+RUN mkdir /packer
+
+RUN wget -qO- http://11.120.148.211/packer.tar.gz wget | tar xvz -C /
+
+RUN chown -R 1001:0 /packer
 
 RUN yum -y localinstall nss_wrapper-1.1.3-1.el7.x86_64.rpm
 
