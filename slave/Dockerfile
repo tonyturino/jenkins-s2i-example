@@ -23,13 +23,13 @@ RUN yum clean all && \
 
 RUN wget http://11.120.148.211/nss_wrapper-1.1.3-1.el7.x86_64.rpm
 
+RUN yum -y localinstall nss_wrapper-1.1.3-1.el7.x86_64.rpm
+
 RUN mkdir /packer
 
 RUN wget -qO- http://11.120.148.211/packer.tar.gz wget | tar xvz -C /
 
 RUN chown -R 1001:0 /packer
-
-RUN yum -y localinstall nss_wrapper-1.1.3-1.el7.x86_64.rpm
 
 # Copy the entrypoint
 COPY configuration/* /var/lib/jenkins/
